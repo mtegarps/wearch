@@ -337,7 +337,7 @@ export default function WearchLanding() {
               </motion.span>
             </div>
             <h2 className="text-4xl md:text-6xl font-light tracking-tight">
-              Selected Works
+              Works
             </h2>
           </motion.div>
 
