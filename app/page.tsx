@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from 'framer-motion';
-import { ArrowRight, Menu, X, Circle, ChevronDown } from 'lucide-react';
+import { ArrowRight, Menu, X, Circle, ChevronDown, Sun, Moon } from 'lucide-react';
 
 export default function WearchLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isDark, setIsDark] = useState(false);
   const { scrollYProgress } = useScroll();
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -33,28 +34,32 @@ export default function WearchLanding() {
       title: "Modern Villa", 
       location: "Dago", 
       year: "2024",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop",
+      category: "Residential"
     },
     { 
       id: 2, 
       title: "Creative Hub", 
       location: "Bandung", 
       year: "2023",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop",
+      category: "Commercial"
     },
     { 
       id: 3, 
       title: "Eco House", 
       location: "Lembang", 
       year: "2024",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      category: "Residential"
     },
     { 
       id: 4, 
       title: "Office Tower", 
       location: "Bandung", 
       year: "2023",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=800&fit=crop"
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=800&fit=crop",
+      category: "Commercial"
     }
   ];
 
@@ -64,30 +69,31 @@ export default function WearchLanding() {
     location: string;
     year: string;
     image: string;
+    category: string;
   }
 
   return (
-    <div className="bg-white text-black overflow-hidden relative">
+    <div className={`${isDark ? 'bg-[#242222] text-white' : 'bg-[#F5F5F5] text-[#242222]'} overflow-hidden relative transition-colors duration-500`}>
       {/* Custom Cursor */}
       <motion.div
         className="fixed w-4 h-4 pointer-events-none z-50 mix-blend-difference hidden md:block"
         style={{ x: cursorX, y: cursorY }}
       >
-        <div className="w-full h-full bg-white rounded-full" />
+        <div className="w-full h-full bg-[#BBFF00] rounded-full" />
       </motion.div>
 
       {/* Subtle Grain Texture Overlay */}
       <div 
         className="fixed inset-0 pointer-events-none z-10 opacity-[0.03]"
         style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px),
-                           repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px)`
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, ${isDark ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.03)'} 2px, ${isDark ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.03)'} 4px),
+                           repeating-linear-gradient(90deg, transparent, transparent 2px, ${isDark ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.03)'} 2px, ${isDark ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.03)'} 4px)`
         }}
       />
 
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-px bg-black origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-[#BBFF00] origin-left z-50"
         style={{ scaleX: scaleProgress }}
       />
 
@@ -96,28 +102,57 @@ export default function WearchLanding() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-black/5"
+        className="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+          {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-xl md:text-2xl font-light tracking-[0.15em]"
+            className="flex items-center gap-3"
           >
-            WEARCH
+            <div>
+              <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 20 L35 80 L20 80 Z" fill="#c8ff00"/>
+                <path d="M42 20 L57 80 L42 80 Z" fill="#c8ff00"/>
+                <path d="M64 20 L79 80 L64 80 Z" fill="#c8ff00"/>
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold tracking-tight leading-none text-[#242222]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 700 }}>
+                Wearch Studio
+              </span>
+              <span className="text-[10px] tracking-[0.15em] uppercase text-gray-400 mt-0.5" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 500 }}>
+                est 2018
+              </span>
+            </div>
           </motion.div>
           
-          <div className="hidden md:flex items-center gap-12">
-            {['Work', 'About', 'Contact'].map((item) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                whileHover={{ y: -2 }}
-                className="text-sm tracking-[0.1em] uppercase opacity-60 hover:opacity-100 transition-opacity"
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
+<div className="hidden md:flex items-center gap-12">
+  {['Work', 'About', 'Contact'].map((item) => (
+    <motion.a
+      key={item}
+      href={`#${item.toLowerCase()}`}
+      whileHover={{ y: -2 }}
+      className="text-sm tracking-[0.1em] uppercase text-gray-600 hover:text-[#c8ff00] transition-colors"
+    >
+      {item}
+    </motion.a>
+  ))}
+  
+  {/* Desktop Theme Toggle */}
+  <motion.button
+    onClick={() => setIsDark(!isDark)}
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors ${
+      isDark 
+        ? 'border-[#BBFF00] bg-[#BBFF00]/10 text-[#BBFF00]' 
+        : 'border-gray-300 bg-white text-gray-600 hover:border-[#c8ff00] hover:text-[#c8ff00]'
+    }`}
+  >
+    {isDark ? <Moon size={18} /> : <Sun size={18} />}
+  </motion.button>
+</div>
 
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -138,7 +173,9 @@ export default function WearchLanding() {
           pointerEvents: isMenuOpen ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 bg-white z-30 flex items-center justify-center md:hidden"
+        className={`fixed inset-0 z-30 flex items-center justify-center md:hidden ${
+          isDark ? 'bg-[#242222]' : 'bg-[#F5F5F5]'
+        }`}
       >
         <div className="space-y-8 text-center">
           {['Work', 'About', 'Contact'].map((item, idx) => (
@@ -157,6 +194,24 @@ export default function WearchLanding() {
               {item}
             </motion.a>
           ))}
+          
+          {/* Mobile Theme Toggle */}
+          <motion.button
+            onClick={() => setIsDark(!isDark)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: isMenuOpen ? 1 : 0,
+              y: isMenuOpen ? 0 : 20
+            }}
+            transition={{ delay: 0.3 }}
+            className={`w-14 h-14 rounded-full border-2 mx-auto flex items-center justify-center ${
+              isDark 
+                ? 'border-[#BBFF00] bg-[#BBFF00]/10 text-[#BBFF00]' 
+                : 'border-[#B8B8B8] bg-white text-[#242222]'
+            }`}
+          >
+            {isDark ? <Moon size={24} /> : <Sun size={24} />}
+          </motion.button>
         </div>
       </motion.div>
 
@@ -174,7 +229,9 @@ export default function WearchLanding() {
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute top-1/4 right-1/4 w-96 h-96 border-2 border-black/10 rounded-full"
+            className={`absolute top-1/4 right-1/4 w-96 h-96 border-2 rounded-full ${
+              isDark ? 'border-[#B8B8B8]/10' : 'border-[#B8B8B8]/20'
+            }`}
           />
           <motion.div
             animate={{
@@ -186,7 +243,9 @@ export default function WearchLanding() {
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] border-2 border-black/10"
+            className={`absolute bottom-1/4 left-1/4 w-[500px] h-[500px] border-2 ${
+              isDark ? 'border-[#B8B8B8]/10' : 'border-[#B8B8B8]/20'
+            }`}
           />
         </div>
 
@@ -197,8 +256,10 @@ export default function WearchLanding() {
             transition={{ duration: 1, delay: 0.2 }}
           >
             <motion.p 
-              className="text-xs md:text-sm tracking-[0.3em] uppercase mb-8 opacity-40"
-              animate={{ opacity: [0.4, 0.6, 0.4] }}
+              className={`text-xs md:text-sm tracking-[0.3em] uppercase mb-8 ${
+                isDark ? 'text-white/40' : 'text-[#242222]/40'
+              }`}
+              animate={{ opacity: isDark ? [0.4, 0.6, 0.4] : [0.4, 0.6, 0.4] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
               Architecture Studio · Bandung
@@ -229,7 +290,9 @@ export default function WearchLanding() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
-            className="text-base md:text-lg opacity-60 mb-12 max-w-2xl mx-auto leading-relaxed"
+            className={`text-base md:text-lg mb-12 max-w-2xl mx-auto leading-relaxed ${
+              isDark ? 'text-white/60' : 'text-[#242222]/60'
+            }`}
           >
             We transform ideas into architectural excellence through innovative design and meticulous attention to detail
           </motion.p>
@@ -243,22 +306,26 @@ export default function WearchLanding() {
               href="#work"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-black text-white text-sm tracking-[0.1em] uppercase relative overflow-hidden"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-[#BBFF00] text-[#242222] text-sm tracking-[0.1em] uppercase relative overflow-hidden font-semibold"
             >
               <motion.div
-                className="absolute inset-0 bg-white"
+                className={`absolute inset-0 ${isDark ? 'bg-white' : 'bg-[#242222]'}`}
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.4 }}
                 style={{ originX: 0 }}
               />
-              <span className="relative z-10 group-hover:text-black transition-colors">
+              <span className={`relative z-10 transition-colors ${
+                isDark ? 'group-hover:text-[#242222]' : 'group-hover:text-[#BBFF00]'
+              }`}>
                 View Projects
               </span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="relative z-10 group-hover:text-black"
+                className={`relative z-10 transition-colors ${
+                  isDark ? 'group-hover:text-[#242222]' : 'group-hover:text-[#BBFF00]'
+                }`}
               >
                 <ArrowRight size={16} />
               </motion.span>
@@ -273,43 +340,22 @@ export default function WearchLanding() {
           transition={{ delay: 1.5 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="text-xs tracking-[0.2em] uppercase opacity-40">Scroll</span>
+          <span className={`text-xs tracking-[0.2em] uppercase ${
+            isDark ? 'text-white/40' : 'text-[#242222]/40'
+          }`}>Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            <ChevronDown size={20} className="opacity-40" />
+            <ChevronDown size={20} className={isDark ? 'text-white/40' : 'text-[#242222]/40'} />
           </motion.div>
         </motion.div>
       </section>
 
       {/* Projects Section with Scale Animation */}
-      <section id="work" className="py-24 md:py-32 px-6 md:px-12 relative">
-        {/* Floating Numbers Background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[0, 1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              className="absolute text-[20vw] font-light opacity-[0.02]"
-              style={{
-                top: `${i * 25}%`,
-                left: `${i % 2 === 0 ? '10%' : '60%'}`
-              }}
-              animate={{
-                y: [0, -50, 0],
-                opacity: [0.02, 0.04, 0.02]
-              }}
-              transition={{
-                duration: 10 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              0{i + 1}
-            </motion.div>
-          ))}
-        </div>
-
+      <section id="work" className={`py-24 md:py-32 px-6 md:px-12 relative transition-colors duration-500 ${
+        isDark ? 'bg-[#242222]' : 'bg-gradient-to-b from-[#F5F5F5] to-white'
+      }`}>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -324,20 +370,22 @@ export default function WearchLanding() {
                 whileInView={{ width: "60px" }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="h-px bg-black"
+                className="h-px bg-[#BBFF00]"
               />
               <motion.span
                 initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 0.4, x: 0 }}
+                whileInView={{ opacity: 0.6, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="text-xs tracking-[0.3em] uppercase"
+                className={`text-xs tracking-[0.3em] uppercase ${
+                  isDark ? 'text-white/50' : 'text-[#242222]/50'
+                }`}
               >
                 Portfolio
               </motion.span>
             </div>
             <h2 className="text-4xl md:text-6xl font-light tracking-tight">
-              Works
+              Selected Works
             </h2>
           </motion.div>
 
@@ -362,11 +410,15 @@ export default function WearchLanding() {
             >
               <span>View All Projects</span>
               <motion.div
-                className="w-12 h-12 border border-black rounded-full flex items-center justify-center"
-                whileHover={{ rotate: 90, scale: 1.1 }}
+                className={`w-12 h-12 border-2 rounded-full flex items-center justify-center transition-colors ${
+                  isDark 
+                    ? 'border-[#BBFF00] bg-[#BBFF00]/10' 
+                    : 'border-[#BBFF00] bg-[#BBFF00]/20'
+                }`}
+                whileHover={{ rotate: 90, scale: 1.1, backgroundColor: isDark ? 'rgba(187, 255, 0, 0.2)' : 'rgba(187, 255, 0, 0.3)' }}
                 transition={{ duration: 0.3 }}
               >
-                <ArrowRight size={16} />
+                <ArrowRight size={16} className="text-[#BBFF00]" />
               </motion.div>
             </motion.a>
           </motion.div>
@@ -374,7 +426,9 @@ export default function WearchLanding() {
       </section>
 
       {/* About Section with Parallax */}
-      <section id="about" className="py-32 md:py-40 px-6 md:px-12 bg-black text-white relative overflow-hidden">
+      <section id="about" className={`py-32 md:py-40 px-6 md:px-12 relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#242222] text-white' : 'bg-[#B8B8B8] text-[#242222]'
+      }`}>
         {/* Animated Grid */}
         <motion.div 
           className="absolute inset-0 opacity-10"
@@ -435,9 +489,11 @@ export default function WearchLanding() {
                 whileInView={{ width: "60px" }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="h-px bg-white/30"
+                className={`h-px ${isDark ? 'bg-[#BBFF00]/30' : 'bg-[#242222]/30'}`}
               />
-              <span className="text-xs tracking-[0.3em] uppercase opacity-50">About Us</span>
+              <span className={`text-xs tracking-[0.3em] uppercase ${
+                isDark ? 'text-white/50' : 'text-[#242222]/50'
+              }`}>About Us</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-light tracking-tight">
               Our Philosophy
@@ -582,12 +638,23 @@ export default function WearchLanding() {
             </div>
 
             {/* Team Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
               {[
-                { name: "Alfiano Ronaldo", role: "Lead Architect" },
-                { name: "Bruno Martin Indi Ricardo Izecsson dos Santos Leite", role: "Design Director" },
-                { name: "Opik Bonny", role: "Project Manager" },
-                { name: "Smes Kamboja", role: "Senior Architect" }
+                { 
+                  name: "Taufiq Ibrahim", 
+                  role: "Lead Architect",
+                  image: "https://i.ibb.co/S75HHXPg/taufiq.jpg"
+                },
+                { 
+                  name: "Azmi Azzami", 
+                  role: "Design Director",
+                  image: "https://i.ibb.co/67RYqQfk/azmi.jpg"
+                },
+                { 
+                  name: "Alfiadi Rakhman", 
+                  role: "Project Manager",
+                  image: "https://i.ibb.co/Y4dq0226/alfiadi.jpg"
+                }
               ].map((member, idx) => (
                 <motion.div
                   key={idx}
@@ -598,50 +665,65 @@ export default function WearchLanding() {
                   whileHover={{ y: -10 }}
                   className="group cursor-pointer"
                 >
-                  {/* Avatar Placeholder */}
+                  {/* Photo Container */}
                   <motion.div
-                    className="aspect-square bg-white/5 mb-4 relative overflow-hidden"
-                    whileHover={{ scale: 1.05 }}
+                    className="aspect-[3/4] mb-4 relative overflow-hidden bg-white/5"
+                    whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.4 }}
                   >
+                    {/* Team Member Photo */}
+                    <motion.img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                      initial={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ duration: 0.6 }}
+                      style={{ 
+                        imageRendering: 'crisp-edges',
+                        backfaceVisibility: 'hidden',
+                        transform: 'translateZ(0)'
+                      }}
+                    />
+                    
                     {/* Gradient Overlay */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 1 }}
                       transition={{ duration: 0.4 }}
                     />
-                    
-                    {/* Initial Circle */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.div
-                        className="w-20 h-20 rounded-full border border-white/30 flex items-center justify-center"
-                        whileHover={{ scale: 1.2, rotate: 90 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <span className="text-2xl font-light text-white/60">
-                          {member.name.charAt(0)}
-                        </span>
-                      </motion.div>
-                    </div>
 
                     {/* Hover Line Animation */}
                     <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-1 bg-white"
+                      className="absolute bottom-0 left-0 right-0 h-1 bg-[#BBFF00]"
                       initial={{ scaleX: 0 }}
                       whileHover={{ scaleX: 1 }}
                       transition={{ duration: 0.4 }}
                       style={{ originX: 0 }}
                     />
+
+                    {/* Corner Accents */}
+                    <motion.div
+                      className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-white/30"
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileHover={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ originX: 1, originY: 0 }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-white/30"
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileHover={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                      style={{ originX: 0, originY: 1 }}
+                    />
                   </motion.div>
 
                   {/* Name & Role */}
                   <motion.h4 
-                    className="text-base md:text-lg font-light mb-2 leading-tight group-hover:text-white/90 transition-colors"
-                    style={{ 
-                      wordBreak: idx === 1 ? 'break-word' : 'normal',
-                      hyphens: idx === 1 ? 'auto' : 'none'
-                    }}
+                    className="text-lg md:text-xl font-light mb-2 leading-tight group-hover:text-white/90 transition-colors"
                   >
                     {member.name}
                   </motion.h4>
@@ -652,10 +734,10 @@ export default function WearchLanding() {
                   {/* Decorative Line */}
                   <motion.div
                     initial={{ width: 0 }}
-                    whileInView={{ width: "30px" }}
+                    whileInView={{ width: "40px" }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 + 0.5, duration: 0.6 }}
-                    className="h-px bg-white/20 mt-4 group-hover:w-full group-hover:bg-white/40 transition-all"
+                    className="h-px bg-white/20 mt-4 group-hover:w-full group-hover:bg-[#BBFF00] transition-all"
                   />
                 </motion.div>
               ))}
@@ -688,21 +770,22 @@ export default function WearchLanding() {
       </section>
 
       {/* Services */}
-      <section className="py-32 md:py-40 px-6 md:px-12 relative overflow-hidden">
-        {/* Background Text */}
+      <section className={`py-32 md:py-40 px-6 md:px-12 relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#242222] text-white' : 'bg-white text-[#242222]'
+      }`}>
+        {/* Background Accent */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-light opacity-[0.02] whitespace-nowrap pointer-events-none"
+          className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#BBFF00]/10 rounded-full blur-3xl"
           animate={{
-            x: ['-50%', '-45%', '-50%']
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1]
           }}
           transition={{
-            duration: 20,
+            duration: 15,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-        >
-          SERVICES
-        </motion.div>
+        />
 
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
@@ -719,9 +802,11 @@ export default function WearchLanding() {
                 whileInView={{ width: "60px" }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="h-px bg-black"
+                className="h-px bg-[#BBFF00]"
               />
-              <span className="text-xs tracking-[0.3em] uppercase opacity-40">What We Do</span>
+              <span className={`text-xs tracking-[0.3em] uppercase ${
+                isDark ? 'text-white/40' : 'text-[#242222]/40'
+              }`}>What We Do</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-light tracking-tight">
               Our Services
@@ -770,7 +855,9 @@ export default function WearchLanding() {
                     whileHover={{ scale: 1.1 }}
                   >
                     <motion.p 
-                      className="text-7xl md:text-8xl font-light opacity-5 group-hover:opacity-20 transition-opacity"
+                      className={`text-7xl md:text-8xl font-light opacity-10 group-hover:opacity-20 transition-opacity ${
+                        isDark ? 'text-[#BBFF00]' : 'text-[#BBFF00]'
+                      }`}
                     >
                       {service.num}
                     </motion.p>
@@ -779,7 +866,7 @@ export default function WearchLanding() {
                       whileInView={{ width: "60px" }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.15 + 0.3, duration: 0.8 }}
-                      className="h-px bg-black absolute bottom-0 left-0 group-hover:w-20 transition-all"
+                      className="h-px bg-[#BBFF00] absolute bottom-0 left-0 group-hover:w-20 transition-all"
                     />
                   </motion.div>
 
@@ -839,7 +926,11 @@ export default function WearchLanding() {
             <p className="text-sm opacity-60 mb-6">Need a custom solution?</p>
             <motion.a
               href="#contact"
-              className="group inline-flex items-center gap-4 px-8 py-4 border border-black text-sm tracking-[0.1em] uppercase hover:bg-black hover:text-white transition-colors"
+              className={`group inline-flex items-center gap-4 px-8 py-4 border-2 border-[#BBFF00] text-sm tracking-[0.1em] uppercase transition-all ${
+                isDark 
+                  ? 'hover:bg-[#BBFF00] hover:text-[#242222]' 
+                  : 'hover:bg-[#BBFF00] hover:text-[#242222]'
+              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -855,145 +946,369 @@ export default function WearchLanding() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-32 md:py-40 px-6 md:px-12 relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
-        {/* Decorative Elements */}
-        <motion.div
-          className="absolute top-40 right-20 w-[500px] h-[500px] bg-black/[0.02] rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          {/* Header */}
+{/* Contact */}
+      <section id="contact" className={`relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#242222]' : 'bg-white'
+      }`}>
+        {/* Massive Animated Background */}
+        <div className="absolute inset-0">
+          {/* Large Gradient Orbs */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
+            className={`absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[120px] ${
+              isDark ? 'bg-[#BBFF00]/10' : 'bg-[#BBFF00]/20'
+            }`}
+            animate={{
+              scale: [1, 1.4, 1],
+              x: [0, -100, 0],
+              y: [0, 100, 0],
+              rotate: [0, 180, 0]
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className={`absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[100px] ${
+              isDark ? 'bg-white/5' : 'bg-[#B8B8B8]/20'
+            }`}
+            animate={{
+              scale: [1, 1.3, 1],
+              x: [0, 100, 0],
+              y: [0, -100, 0],
+              rotate: [0, -180, 0]
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+
+          {/* Floating Grid Pattern */}
+          <motion.div
+            className={`absolute inset-0 opacity-[0.03] ${isDark ? '' : ''}`}
+            style={{
+              backgroundImage: `
+                linear-gradient(${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} 1px, transparent 1px),
+                linear-gradient(90deg, ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} 1px, transparent 1px)
+              `,
+              backgroundSize: '80px 80px'
+            }}
+            animate={{
+              backgroundPosition: ['0px 0px', '80px 80px']
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+
+          {/* Floating Geometric Shapes */}
+          {[...Array(8)].map((_, i) => (
             <motion.div
+              key={i}
+              className={`absolute w-3 h-3 ${
+                i % 3 === 0 ? 'rounded-full' : i % 3 === 1 ? '' : 'rotate-45'
+              } ${isDark ? 'bg-[#BBFF00]/20' : 'bg-[#BBFF00]/30'}`}
+              style={{
+                left: `${15 + i * 12}%`,
+                top: `${20 + (i * 13) % 60}%`
+              }}
+              animate={{
+                y: [0, -50, 0],
+                x: [0, (i % 2 ? 30 : -30), 0],
+                rotate: [0, 360, 0],
+                opacity: [0.2, 0.6, 0.2]
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.5
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          {/* Hero Title Section */}
+          <motion.div
+            className="text-center mb-20 md:mb-28"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            {/* Decorative Element */}
+            <motion.div
+              className="flex items-center justify-center gap-4 mb-12"
               initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 0.1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 1 }}
-              className="inline-block mb-8"
+              transition={{ duration: 1, ease: "backOut" }}
             >
-              <Circle size={60} strokeWidth={0.5} />
+              <motion.div
+                className={`h-px w-20 ${isDark ? 'bg-gradient-to-r from-transparent to-[#BBFF00]' : 'bg-gradient-to-r from-transparent to-[#BBFF00]'}`}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              />
+              
+              <motion.div
+                className="relative"
+                animate={{
+                  rotate: [0, 360]
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              >
+                <motion.div
+                  className={`w-3 h-3 rounded-full ${isDark ? 'bg-[#BBFF00]' : 'bg-[#BBFF00]'}`}
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    boxShadow: [
+                      '0 0 0 0 rgba(187, 255, 0, 0)',
+                      '0 0 0 10px rgba(187, 255, 0, 0.2)',
+                      '0 0 0 0 rgba(187, 255, 0, 0)'
+                    ]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity
+                  }}
+                />
+              </motion.div>
+
+              <motion.div
+                className={`h-px w-20 ${isDark ? 'bg-gradient-to-l from-transparent to-[#BBFF00]' : 'bg-gradient-to-l from-transparent to-[#BBFF00]'}`}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              />
             </motion.div>
 
-            <h2 className="text-5xl md:text-7xl font-light tracking-tight mb-6">
-              Let's Create
-              <br />
-              <span className="italic font-extralight">Together</span>
-            </h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 0.6, y: 0 }}
+            {/* Main Title */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-lg max-w-2xl mx-auto leading-relaxed"
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Ready to transform your vision into reality? Let's start a conversation about your next project.
-            </motion.p>
-          </motion.div>
-
-          {/* Contact Info Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
-            {[
-              { 
-                label: "Email",
-                value: "hello@wearch.id",
-                href: "mailto:hello@wearch.id",
-                icon: "✉"
-              },
-              { 
-                label: "Phone",
-                value: "+62 812 3456 7890",
-                href: "tel:+6281234567890",
-                icon: "✆"
-              },
-              { 
-                label: "Office",
-                value: "Bandung, Indonesia",
-                href: "#",
-                icon: "⌘"
-              }
-            ].map((item, idx) => (
-              <motion.a
-                key={idx}
-                href={item.href}
+              <h2 className="text-7xl md:text-9xl font-light tracking-tight leading-none mb-4">
+                <motion.span
+                  className="inline-block"
+                  whileHover={{ scale: 1.05, x: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Let's
+                </motion.span>{' '}
+                <motion.span
+                  className="inline-block"
+                  whileHover={{ scale: 1.05, x: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Create
+                </motion.span>
+              </h2>
+              
+              <motion.div
+                className="relative inline-block"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 + 0.4, duration: 0.6 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative bg-white border border-black/5 p-8 hover:border-black/20 transition-colors"
+                transition={{ duration: 0.8, delay: 0.4 }}
               >
-                {/* Background on Hover */}
-                <motion.div
-                  className="absolute inset-0 bg-black"
-                  initial={{ scaleY: 0 }}
-                  whileHover={{ scaleY: 1 }}
+                <motion.span 
+                  className="text-7xl md:text-9xl italic font-extralight tracking-tight"
+                  whileHover={{ 
+                    skewX: -8,
+                    scale: 1.08,
+                    color: isDark ? '#BBFF00' : '#BBFF00',
+                    textShadow: '0 0 30px rgba(187, 255, 0, 0.3)'
+                  }}
                   transition={{ duration: 0.4 }}
-                  style={{ originY: 1 }}
-                />
+                >
+                  Together
+                </motion.span>
+                
+                {/* Dynamic Underline */}
+                <motion.div
+                  className="absolute -bottom-4 left-0 right-0"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, duration: 1 }}
+                >
+                  <motion.div
+                    className={`h-2 bg-gradient-to-r ${
+                      isDark 
+                        ? 'from-[#BBFF00]/0 via-[#BBFF00] to-[#BBFF00]/0' 
+                        : 'from-[#BBFF00]/0 via-[#BBFF00] to-[#BBFF00]/0'
+                    }`}
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                    style={{ backgroundSize: '200% 100%' }}
+                  />
+                </motion.div>
+              </motion.div>
+            </motion.div>
 
-                <div className="relative z-10">
-                  <motion.p 
-                    className="text-3xl mb-4 opacity-20 group-hover:opacity-100 transition-opacity"
-                    whileHover={{ scale: 1.2, rotate: 10 }}
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className={`text-xl md:text-2xl font-light max-w-3xl mx-auto leading-relaxed mt-12 ${
+                isDark ? 'text-white/70' : 'text-[#242222]/70'
+              }`}
+            >
+              Ready to transform your vision into architectural excellence? Let's start a conversation.
+            </motion.p>
+          </motion.div>
+
+          {/* Contact Cards - Centered Showcase */}
+          <div className="max-w-5xl mx-auto mb-20">
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { 
+                  label: "Email",
+                  value: "hello@wearch.id",
+                  href: "mailto:hello@wearch.id",
+                  icon: "✉"
+                },
+                { 
+                  label: "Phone",
+                  value: "+62 812 3456 7890",
+                  href: "tel:+6281234567890",
+                  icon: "✆"
+                },
+                { 
+                  label: "Office",
+                  value: "Bandung, Indonesia",
+                  href: "#",
+                  icon: "⌘"
+                }
+              ].map((item, idx) => (
+                <motion.a
+                  key={idx}
+                  href={item.href}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 + idx * 0.1, duration: 0.6 }}
+                  whileHover={{ 
+                    y: -15,
+                    scale: 1.03,
+                    boxShadow: isDark 
+                      ? '0 20px 40px rgba(187, 255, 0, 0.1)' 
+                      : '0 20px 40px rgba(0, 0, 0, 0.1)'
+                  }}
+                  className={`group relative p-8 border-2 transition-all duration-500 ${
+                    isDark 
+                      ? 'bg-white/5 border-white/10 hover:border-[#BBFF00] hover:bg-white/10' 
+                      : 'bg-[#F5F5F5] border-black/5 hover:border-[#BBFF00] hover:bg-white'
+                  }`}
+                >
+                  {/* Corner Decorations */}
+                  <motion.div
+                    className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 ${
+                      isDark ? 'border-[#BBFF00]/0 group-hover:border-[#BBFF00]' : 'border-[#BBFF00]/0 group-hover:border-[#BBFF00]'
+                    } transition-colors`}
+                  />
+                  <motion.div
+                    className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 ${
+                      isDark ? 'border-[#BBFF00]/0 group-hover:border-[#BBFF00]' : 'border-[#BBFF00]/0 group-hover:border-[#BBFF00]'
+                    } transition-colors`}
+                  />
+
+                  {/* Icon */}
+                  <motion.div
+                    className={`w-20 h-20 mx-auto mb-6 border-2 flex items-center justify-center text-3xl transition-all ${
+                      isDark 
+                        ? 'border-[#BBFF00]/30 text-[#BBFF00] group-hover:bg-[#BBFF00] group-hover:text-[#242222] group-hover:border-[#BBFF00]' 
+                        : 'border-[#BBFF00]/50 text-[#BBFF00] group-hover:bg-[#BBFF00] group-hover:text-[#242222] group-hover:border-[#BBFF00]'
+                    }`}
+                    whileHover={{ 
+                      rotate: [0, -10, 10, -10, 0],
+                      scale: 1.1
+                    }}
+                    transition={{ duration: 0.5 }}
                   >
                     {item.icon}
-                  </motion.p>
-                  <p className="text-xs tracking-[0.2em] uppercase opacity-40 mb-3 group-hover:text-white/60 transition-colors">
-                    {item.label}
-                  </p>
-                  <p className="text-lg font-light group-hover:text-white transition-colors">
-                    {item.value}
-                  </p>
-                </div>
+                  </motion.div>
 
-                {/* Arrow */}
-                <motion.div
-                  className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                  initial={{ x: -10 }}
-                  whileHover={{ x: 0 }}
-                >
-                  <ArrowRight size={20} className="text-white" />
-                </motion.div>
-              </motion.a>
-            ))}
+                  {/* Text */}
+                  <div className="text-center">
+                    <p className={`text-xs tracking-[0.2em] uppercase mb-3 ${
+                      isDark ? 'text-white/40' : 'text-[#242222]/40'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-lg md:text-xl font-light ${
+                      isDark ? 'text-white' : 'text-[#242222]'
+                    }`}>
+                      {item.value}
+                    </p>
+                  </div>
+
+                  {/* Hover Arrow */}
+                  <motion.div
+                    className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1, rotate: -45 }}
+                  >
+                    <ArrowRight size={20} className="text-[#BBFF00]" />
+                  </motion.div>
+                </motion.a>
+              ))}
+            </div>
           </div>
 
-          {/* Main CTA */}
+          {/* CTA Section */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-center"
+            transition={{ delay: 1, duration: 0.8 }}
+            className="text-center max-w-4xl mx-auto mb-16"
           >
+            <motion.p
+              className={`text-base md:text-lg leading-relaxed mb-10 ${
+                isDark ? 'text-white/60' : 'text-[#242222]/60'
+              }`}
+            >
+              Whether it's a residential dream home, a commercial space, or an urban development—
+              <br className="hidden md:block" />
+              we're here to bring your vision to life with innovative design and precision.
+            </motion.p>
+
             <motion.a
               href="mailto:hello@wearch.id"
               className="group inline-block relative"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
+              {/* Glow Effect */}
               <motion.div
-                className="absolute -inset-4 bg-black/5 blur-xl"
+                className="absolute -inset-8 bg-[#BBFF00]/30 blur-3xl"
                 animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.8, 0.5]
+                  scale: [1, 1.3, 1],
+                  opacity: [0.3, 0.6, 0.3]
                 }}
                 transition={{
                   duration: 3,
@@ -1002,58 +1317,38 @@ export default function WearchLanding() {
                 }}
               />
               
-              <div className="relative px-12 py-6 bg-black text-white text-sm tracking-[0.15em] uppercase overflow-hidden">
+              {/* Button */}
+              <div className="relative px-16 py-6 bg-[#BBFF00] text-[#242222] text-base tracking-[0.15em] uppercase overflow-hidden font-bold flex items-center gap-4">
                 <motion.div
-                  className="absolute inset-0 bg-white"
+                  className={`absolute inset-0 ${isDark ? 'bg-white' : 'bg-[#242222]'}`}
                   initial={{ x: '-100%' }}
                   whileHover={{ x: 0 }}
-                  transition={{ duration: 0.4 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 />
-                <span className="relative z-10 group-hover:text-black transition-colors">
+                <span className={`relative z-10 transition-colors ${
+                  isDark ? 'group-hover:text-[#242222]' : 'group-hover:text-[#BBFF00]'
+                }`}>
                   Start Your Project
                 </span>
+                <motion.div
+                  animate={{ x: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="relative z-10"
+                >
+                  <ArrowRight size={20} className={`transition-colors ${
+                    isDark ? 'group-hover:text-[#242222]' : 'group-hover:text-[#BBFF00]'
+                  }`} />
+                </motion.div>
               </div>
             </motion.a>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 0.4, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-              className="text-xs tracking-[0.2em] uppercase mt-8"
-            >
-              Based in Bandung, Serving Indonesia
-            </motion.p>
-          </motion.div>
-
-          {/* Social Links (Optional) */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1 }}
-            className="flex justify-center gap-8 mt-16 pt-16 border-t border-black/5"
-          >
-            {['Instagram', 'LinkedIn', 'Behance'].map((social, idx) => (
-              <motion.a
-                key={social}
-                href="#"
-                className="text-xs tracking-[0.15em] uppercase opacity-40 hover:opacity-100 transition-opacity"
-                whileHover={{ y: -3 }}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 0.4, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1 + idx * 0.1 }}
-              >
-                {social}
-              </motion.a>
-            ))}
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 md:px-12 bg-black text-white relative overflow-hidden">
+      <footer className={`py-16 px-6 md:px-12 relative overflow-hidden transition-colors duration-500 ${
+        isDark ? 'bg-[#242222] text-white' : 'bg-[#B8B8B8] text-[#242222]'
+      }`}>
         {/* Animated Background Pattern */}
         <motion.div
           className="absolute inset-0 opacity-5"
@@ -1082,13 +1377,27 @@ export default function WearchLanding() {
               transition={{ duration: 0.6 }}
               className="md:col-span-2"
             >
-              <motion.h3 
-                className="text-3xl md:text-4xl font-light tracking-[0.15em] mb-6"
-                whileHover={{ scale: 1.05 }}
-                style={{ originX: 0 }}
-              >
-                WEARCH
-              </motion.h3>
+     <motion.div 
+              className="flex items-center gap-3 mb-6"
+              whileHover={{ scale: 1.05 }}
+              style={{ originX: 0 }}
+            >
+              <div>
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 20 L35 80 L20 80 Z" fill="#c8ff00"/>
+                  <path d="M42 20 L57 80 L42 80 Z" fill="#c8ff00"/>
+                  <path d="M64 20 L79 80 L64 80 Z" fill="#c8ff00"/>
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold tracking-tight leading-none" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 700 }}>
+                  Wearch Studio
+                </span>
+                <span className="text-[10px] tracking-[0.15em] uppercase text-white/40 mt-0.5" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: 500 }}>
+                  est 2018
+                </span>
+              </div>
+            </motion.div>
               <p className="text-white/50 text-sm leading-relaxed max-w-sm">
                 Creating architectural excellence in Bandung and beyond. 
                 Transforming visions into timeless spaces.
@@ -1099,7 +1408,7 @@ export default function WearchLanding() {
                 whileInView={{ width: "80px" }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="h-px bg-white/20 mt-8"
+                className={`h-px mt-8 ${isDark ? 'bg-[#BBFF00]/30' : 'bg-[#242222]/30'}`}
               />
             </motion.div>
 
@@ -1244,11 +1553,15 @@ export default function WearchLanding() {
           >
             <motion.a
               href="#home"
-              className="inline-flex flex-col items-center gap-2 text-xs tracking-[0.2em] uppercase text-white/40 hover:text-white/70 transition-colors group"
+              className={`inline-flex flex-col items-center gap-2 text-xs tracking-[0.2em] uppercase transition-colors group ${
+                isDark ? 'text-white/40 hover:text-[#BBFF00]' : 'text-[#242222]/40 hover:text-[#BBFF00]'
+              }`}
               whileHover={{ y: -5 }}
             >
               <motion.div
-                className="w-12 h-12 border border-white/20 group-hover:border-white/40 transition-colors flex items-center justify-center"
+                className={`w-12 h-12 border-2 transition-colors flex items-center justify-center ${
+                  isDark ? 'border-[#BBFF00]/30 group-hover:border-[#BBFF00]' : 'border-[#242222]/30 group-hover:border-[#BBFF00]'
+                }`}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
@@ -1295,15 +1608,6 @@ function ProjectItem({ project, index }: { project: { id: number; title: string;
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Project Number - Large Background */}
-      <motion.div
-        className="absolute -top-20 left-0 text-[15vw] md:text-[12vw] font-light opacity-[0.03] pointer-events-none"
-        initial={{ x: -100, opacity: 0 }}
-        animate={isInView ? { x: 0, opacity: 0.03 } : {}}
-        transition={{ duration: 1.2, delay: 0.2 }}
-      >
-        0{index + 1}
-      </motion.div>
 
       <div className={`grid md:grid-cols-12 gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:direction-rtl' : ''}`}>
         {/* Text Content */}
