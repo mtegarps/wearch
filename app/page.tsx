@@ -417,38 +417,6 @@ export default function WearchLanding() {
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative px-6 md:px-12 pt-24">
-        {/* Animated Background Shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 90, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className={`absolute top-1/4 right-1/4 w-96 h-96 border-2 rounded-full ${
-              isDark ? "border-[#B8B8B8]/10" : "border-[#B8B8B8]/20"
-            }`}
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, -90, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className={`absolute bottom-1/4 left-1/4 w-[500px] h-[500px] border-2 ${
-              isDark ? "border-[#B8B8B8]/10" : "border-[#B8B8B8]/20"
-            }`}
-          />
-        </div>
-
         <div className="relative z-10 text-center max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -656,7 +624,7 @@ export default function WearchLanding() {
         </div>
       </section>
 
-      {/* About Section with Parallax */}
+{/* About Section with Parallax */}
       <section
         id="about"
         className={`py-32 md:py-40 px-6 md:px-12 relative overflow-hidden transition-colors duration-500 ${
@@ -840,8 +808,8 @@ export default function WearchLanding() {
             </motion.p>
           </motion.div>
 
-          {/* Main Content Grid */}
-          <div className="grid md:grid-cols-2 gap-16 md:gap-24 mb-32">
+          {/* Main Content Grid - Centered & Balanced */}
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20 mb-32">
             {/* Quote & Philosophy Text */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -852,15 +820,16 @@ export default function WearchLanding() {
             >
               {/* Featured Quote */}
               <motion.div
-                className="relative"
+                className="relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
               >
+                {/* Animated Quote Border */}
                 <motion.div
-                  className={`absolute -left-4 top-0 w-1 h-full ${
+                  className={`absolute -left-6 top-0 w-1.5 h-full rounded-full ${
                     isDark
-                      ? "bg-gradient-to-b from-[#BBFF00] to-transparent"
-                      : "bg-gradient-to-b from-[#BBFF00] to-transparent"
+                      ? "bg-gradient-to-b from-[#BBFF00] via-[#BBFF00]/50 to-transparent"
+                      : "bg-gradient-to-b from-[#BBFF00] via-[#BBFF00]/50 to-transparent"
                   }`}
                   initial={{ scaleY: 0 }}
                   whileInView={{ scaleY: 1 }}
@@ -869,19 +838,36 @@ export default function WearchLanding() {
                   style={{ originY: 0 }}
                 />
 
+                {/* Glow Effect */}
+                <motion.div
+                  className="absolute -left-6 top-0 w-8 h-32 bg-[#BBFF00]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  animate={{
+                    y: [0, "100%", 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="pl-8"
+                  className="pl-10"
                 >
-                  <p className="text-2xl md:text-3xl font-light leading-relaxed italic mb-6 opacity-90">
+                  <motion.p 
+                    className="text-2xl md:text-3xl font-light leading-relaxed italic mb-6 opacity-90"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     "Architecture is the thoughtful making of space"
-                  </p>
+                  </motion.p>
                   <div className="flex items-center gap-4">
                     <motion.div
-                      className="h-px w-12 bg-[#BBFF00]/50"
+                      className="h-px w-16 bg-[#BBFF00]/50"
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: true }}
@@ -894,26 +880,53 @@ export default function WearchLanding() {
                 </motion.div>
               </motion.div>
 
-              {/* Philosophy Paragraphs */}
+              {/* Philosophy Paragraphs with Enhanced Styling */}
               <motion.div
-                className="space-y-6"
+                className="space-y-6 relative"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.7 }}
               >
-                <p className="text-base leading-relaxed opacity-80">
+                {/* Decorative Element */}
+                <motion.div 
+                  className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-transparent via-[#BBFF00]/10 to-transparent"
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8, duration: 1.2 }}
+                />
+
+                <motion.p 
+                  className="text-base md:text-lg leading-relaxed opacity-80 pl-6"
+                  whileHover={{ x: 5, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   We believe architecture transcends mere buildings—it's about
                   creating experiences that enhance human connection and inspire
-                  daily life.
-                </p>
+                  daily life. Every space tells a story, and we're here to help you tell yours.
+                </motion.p>
 
-                <p className="text-base leading-relaxed opacity-80">
+                <motion.p 
+                  className="text-base md:text-lg leading-relaxed opacity-80 pl-6"
+                  whileHover={{ x: 5, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   Every project is a unique dialogue between space, light, and
                   purpose, crafted with precision and passion. We transform
                   visions into architectural poetry that stands the test of
-                  time.
-                </p>
+                  time, blending innovation with timeless design principles.
+                </motion.p>
+
+                <motion.p 
+                  className="text-base md:text-lg leading-relaxed opacity-80 pl-6"
+                  whileHover={{ x: 5, opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Our approach combines sustainable practices with cutting-edge technology, 
+                  ensuring every structure we create is not only beautiful but also 
+                  environmentally responsible and built for future generations.
+                </motion.p>
               </motion.div>
 
               {/* Core Values - Elegant Grid */}
@@ -939,10 +952,10 @@ export default function WearchLanding() {
 
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { label: "Innovation", icon: "◆" },
-                    { label: "Sustainability", icon: "◆" },
-                    { label: "Excellence", icon: "◆" },
-                    { label: "Integrity", icon: "◆" },
+                    { label: "Innovation", icon: "◆", desc: "Pushing boundaries" },
+                    { label: "Sustainability", icon: "◆", desc: "Green future" },
+                    { label: "Excellence", icon: "◆", desc: "Quality first" },
+                    { label: "Integrity", icon: "◆", desc: "Honest work" },
                   ].map((value, idx) => (
                     <motion.div
                       key={idx}
@@ -951,18 +964,33 @@ export default function WearchLanding() {
                       viewport={{ once: true }}
                       transition={{ delay: 1.1 + idx * 0.1 }}
                       whileHover={{ x: 8, scale: 1.05 }}
-                      className="flex items-center gap-3 group cursor-pointer"
+                      className="group cursor-pointer relative overflow-hidden p-4 border border-transparent hover:border-[#BBFF00]/20 transition-all duration-300"
                     >
-                      <motion.span
-                        className="text-[#BBFF00] text-xs"
-                        whileHover={{ rotate: 45, scale: 1.3 }}
+                      {/* Hover Background */}
+                      <motion.div
+                        className="absolute inset-0 bg-[#BBFF00]/5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        initial={{ x: "-100%" }}
+                        whileHover={{ x: 0 }}
                         transition={{ duration: 0.3 }}
-                      >
-                        {value.icon}
-                      </motion.span>
-                      <span className="text-sm tracking-wide opacity-60 group-hover:opacity-100 transition-opacity">
-                        {value.label}
-                      </span>
+                      />
+                      
+                      <div className="relative z-10 flex flex-col gap-2">
+                        <div className="flex items-center gap-3">
+                          <motion.span
+                            className="text-[#BBFF00] text-xs"
+                            whileHover={{ rotate: 45, scale: 1.3 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {value.icon}
+                          </motion.span>
+                          <span className="text-sm tracking-wide opacity-60 group-hover:opacity-100 transition-opacity font-medium">
+                            {value.label}
+                          </span>
+                        </div>
+                        <span className="text-xs opacity-40 group-hover:opacity-60 transition-opacity pl-6">
+                          {value.desc}
+                        </span>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -1909,9 +1937,9 @@ export default function WearchLanding() {
             </motion.p>
           </motion.div>
 
-          {/* Contact Cards - Centered Showcase */}
-          <div className="max-w-5xl mx-auto mb-20">
-            <div className="grid md:grid-cols-3 gap-6">
+{/* Contact Cards - Compact & Animated Design */}
+          <div className="max-w-6xl mx-auto mb-20">
+            <div className="grid md:grid-cols-3 gap-1">
               {[
                 {
                   label: "Email",
@@ -1935,81 +1963,234 @@ export default function WearchLanding() {
                 <motion.a
                   key={idx}
                   href={item.href}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 50, rotateX: 45 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.8 + idx * 0.1, duration: 0.6 }}
-                  whileHover={{
-                    y: -15,
-                    scale: 1.03,
-                    boxShadow: isDark
-                      ? "0 20px 40px rgba(187, 255, 0, 0.1)"
-                      : "0 20px 40px rgba(0, 0, 0, 0.1)",
+                  transition={{ 
+                    delay: 0.8 + idx * 0.15, 
+                    duration: 0.8,
+                    type: "spring",
+                    stiffness: 100
                   }}
-                  className={`group relative p-8 border-2 transition-all duration-500 ${
+                  className={`group relative overflow-hidden ${
                     isDark
-                      ? "bg-white/5 border-white/10 hover:border-[#BBFF00] hover:bg-white/10"
-                      : "bg-[#F5F5F5] border-black/5 hover:border-[#BBFF00] hover:bg-white"
+                      ? "bg-white/5 hover:bg-white/10"
+                      : "bg-[#F5F5F5] hover:bg-white"
                   }`}
+                  style={{ perspective: "1000px" }}
                 >
-                  {/* Corner Decorations */}
+                  {/* Animated Border Glow */}
                   <motion.div
-                    className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 ${
-                      isDark
-                        ? "border-[#BBFF00]/0 group-hover:border-[#BBFF00]"
-                        : "border-[#BBFF00]/0 group-hover:border-[#BBFF00]"
-                    } transition-colors`}
-                  />
-                  <motion.div
-                    className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 ${
-                      isDark
-                        ? "border-[#BBFF00]/0 group-hover:border-[#BBFF00]"
-                        : "border-[#BBFF00]/0 group-hover:border-[#BBFF00]"
-                    } transition-colors`}
-                  />
-
-                  {/* Icon */}
-                  <motion.div
-                    className={`w-20 h-20 mx-auto mb-6 border-2 flex items-center justify-center text-3xl transition-all ${
-                      isDark
-                        ? "border-[#BBFF00]/30 text-[#BBFF00] group-hover:bg-[#BBFF00] group-hover:text-[#242222] group-hover:border-[#BBFF00]"
-                        : "border-[#BBFF00]/50 text-[#BBFF00] group-hover:bg-[#BBFF00] group-hover:text-[#242222] group-hover:border-[#BBFF00]"
-                    }`}
-                    whileHover={{
-                      rotate: [0, -10, 10, -10, 0],
-                      scale: 1.1,
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: isDark 
+                        ? `linear-gradient(${idx * 120}deg, transparent, rgba(187, 255, 0, 0.1), transparent)`
+                        : `linear-gradient(${idx * 120}deg, transparent, rgba(187, 255, 0, 0.25), transparent)`,
                     }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {item.icon}
-                  </motion.div>
+                    animate={{
+                      backgroundPosition: ["0% 0%", "200% 200%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
 
-                  {/* Text */}
-                  <div className="text-center">
-                    <p
-                      className={`text-xs tracking-[0.2em] uppercase mb-3 ${
-                        isDark ? "text-white/40" : "text-[#242222]/40"
+                  {/* Diagonal Animated Lines */}
+                  <motion.div
+                    className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100"
+                    style={{
+                      background: isDark
+                        ? `repeating-linear-gradient(
+                            ${45 + idx * 30}deg,
+                            transparent,
+                            transparent 10px,
+                            rgba(187, 255, 0, 0.03) 10px,
+                            rgba(187, 255, 0, 0.03) 11px
+                          )`
+                        : `repeating-linear-gradient(
+                            ${45 + idx * 30}deg,
+                            transparent,
+                            transparent 10px,
+                            rgba(187, 255, 0, 0.08) 10px,
+                            rgba(187, 255, 0, 0.08) 11px
+                          )`,
+                    }}
+                    animate={{
+                      backgroundPosition: ["0px 0px", "20px 20px"],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+
+                  {/* Pulsing Corner Dots */}
+                  {[
+                    { top: 8, left: 8 },
+                    { top: 8, right: 8 },
+                    { bottom: 8, left: 8 },
+                    { bottom: 8, right: 8 },
+                  ].map((pos, i) => (
+                    <motion.div
+                      key={i}
+                      className={`absolute w-1.5 h-1.5 rounded-full ${
+                        isDark ? "bg-[#BBFF00]" : "bg-[#BBFF00] shadow-lg shadow-[#BBFF00]/50"
                       }`}
+                      style={pos}
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: isDark ? [0.3, 1, 0.3] : [0.6, 1, 0.6],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.2 + idx * 0.3,
+                      }}
+                    />
+                  ))}
+
+                  {/* Main Content */}
+                  <motion.div 
+                    className="relative p-8 flex flex-col items-center"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Animated Icon Container */}
+                    <motion.div
+                      className="relative mb-5"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
                     >
-                      {item.label}
-                    </p>
-                    <p
-                      className={`text-lg md:text-xl font-light ${
+                      {/* Icon Rings */}
+                      <motion.div
+                        className={`absolute inset-0 w-16 h-16 -m-2 border-2 rounded-full ${
+                          isDark ? "border-[#BBFF00]/20" : "border-[#BBFF00]/60"
+                        }`}
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: isDark ? [0.3, 0.6, 0.3] : [0.5, 0.8, 0.5],
+                          rotate: [0, 180, 360],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          delay: idx * 0.4,
+                        }}
+                      />
+                      <motion.div
+                        className={`absolute inset-0 w-16 h-16 -m-2 border-2 rounded-full ${
+                          isDark ? "border-[#BBFF00]/10" : "border-[#BBFF00]/40"
+                        }`}
+                        animate={{
+                          scale: [1.2, 1, 1.2],
+                          opacity: isDark ? [0.2, 0.4, 0.2] : [0.4, 0.6, 0.4],
+                          rotate: [360, 180, 0],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          delay: idx * 0.4,
+                        }}
+                      />
+
+                      {/* Icon */}
+                      <motion.div
+                        className={`w-12 h-12 flex items-center justify-center text-2xl transition-all ${
+                          isDark
+                            ? "text-[#BBFF00] group-hover:text-[#242222]"
+                            : "text-[#BBFF00] group-hover:text-[#242222]"
+                        }`}
+                        whileHover={{ scale: 1.2 }}
+                      >
+                        <motion.div
+                          className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                            isDark ? "bg-[#BBFF00]" : "bg-[#BBFF00]"
+                          }`}
+                          animate={{
+                            scale: [0.8, 1, 0.8],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                          }}
+                        />
+                        <span className="relative z-10">{item.icon}</span>
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Label with Animated Underline */}
+                    <div className="relative mb-2">
+                      <p
+                        className={`text-xs tracking-[0.25em] uppercase ${
+                          isDark ? "text-white/40 group-hover:text-[#BBFF00]/70" : "text-[#242222]/40 group-hover:text-[#BBFF00]"
+                        } transition-colors duration-300`}
+                      >
+                        {item.label}
+                      </p>
+                      <motion.div
+                        className="absolute -bottom-1 left-0 right-0 h-px bg-[#BBFF00]"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+
+                    {/* Value */}
+                    <motion.p
+                      className={`text-base md:text-lg font-light text-center ${
                         isDark ? "text-white" : "text-[#242222]"
                       }`}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
                     >
                       {item.value}
-                    </p>
-                  </div>
+                    </motion.p>
 
-                  {/* Hover Arrow */}
-                  <motion.div
-                    className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={{ scale: 0 }}
-                    whileHover={{ scale: 1, rotate: -45 }}
-                  >
-                    <ArrowRight size={20} className="text-[#BBFF00]" />
+                    {/* Animated Bottom Line */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#BBFF00] to-transparent"
+                      initial={{ scaleX: 0, opacity: 0 }}
+                      whileHover={{ scaleX: 1, opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    />
+
+                    {/* Hover Arrow Indicator */}
+                    <motion.div
+                      className="absolute top-4 right-4 opacity-0 group-hover:opacity-100"
+                      initial={{ scale: 0, rotate: -45 }}
+                      whileHover={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ArrowRight size={16} className="text-[#BBFF00]" />
+                    </motion.div>
                   </motion.div>
+
+                  {/* Scanning Effect */}
+                  <motion.div
+                    className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 pointer-events-none"
+                    style={{
+                      background: isDark
+                        ? `linear-gradient(180deg, 
+                            transparent 0%, 
+                            rgba(187, 255, 0, 0.1) 50%, 
+                            transparent 100%)`
+                        : `linear-gradient(180deg, 
+                            transparent 0%, 
+                            rgba(187, 255, 0, 0.2) 50%, 
+                            transparent 100%)`,
+                    }}
+                    animate={{
+                      y: ["-100%", "200%"],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
                 </motion.a>
               ))}
             </div>
@@ -2661,40 +2842,6 @@ export default function WearchLanding() {
               ))}
             </motion.div>
           </div>
-
-          {/* Back to Top */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7 }}
-            className="text-center mt-16"
-          >
-            <motion.a
-              href="#home"
-              className={`inline-flex flex-col items-center gap-2 text-xs tracking-[0.2em] uppercase transition-colors group ${
-                isDark
-                  ? "text-white/40 hover:text-[#BBFF00]"
-                  : "text-[#242222]/40 hover:text-[#BBFF00]"
-              }`}
-              whileHover={{ y: -5 }}
-            >
-              <motion.div
-                className={`w-12 h-12 border-2 transition-colors flex items-center justify-center ${
-                  isDark
-                    ? "border-[#BBFF00]/30 group-hover:border-[#BBFF00]"
-                    : "border-[#242222]/30 group-hover:border-[#BBFF00]"
-                }`}
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <motion.div animate={{ rotate: 180 }} className="rotate-180">
-                  <ChevronDown size={16} />
-                </motion.div>
-              </motion.div>
-              <span>Back to Top</span>
-            </motion.a>
-          </motion.div>
         </div>
       </footer>
     </div>
